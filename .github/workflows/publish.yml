@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        package: ["config", "provider"]
+        package: ["@stabilityprotocol/provider", "@stabilityprotocol/config"]
     steps:
       - uses: actions/checkout@v3
 
