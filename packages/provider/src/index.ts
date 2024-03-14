@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { Blockchains, networks } from "config";
+import { Blockchains, networks } from "@stabilityprotocol/config";
 
 export class StabilityGtnRpcProvider extends ethers.providers.JsonRpcProvider {
   constructor(apiKey: string) {
