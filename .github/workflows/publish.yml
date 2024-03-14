@@ -7,9 +7,6 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package: ["@stabilityprotocol/provider", "@stabilityprotocol/config"]
     steps:
       - uses: actions/checkout@v3
 
@@ -24,9 +21,13 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build package
-        run: yarn workspace ${{ matrix.package }} build
+        run: |
+          yarn workspace @stabilityprotocol/config build
+          yarn workspace @stabilityprotocol/provider build
 
       - name: Publish package
-        run: yarn workspace ${{ matrix.package }} publish --non-interactive --access public
+        run: |
+          yarn workspace @stabilityprotocol/config  publish --non-interactive --access public
+          yarn workspace @stabilityprotocol/provider  publish --non-interactive --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
