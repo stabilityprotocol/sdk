@@ -21,9 +21,6 @@
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@wagmi/connectors": "^4.1.18",
-    "@wagmi/core": "^2.6.9",
-    "viem": "^2.8.11",
-    "wagmi": "1.4.4"
+    "viem": "^2.8.11"
   }
 }
