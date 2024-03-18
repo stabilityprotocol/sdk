@@ -11,7 +11,7 @@ describe("StabilityGtnRpcProvider", () => {
     const provider = new StabilityGtnRpcProvider(apiKey);
 
     expect(provider.connection.url).toBe(
-      `${networks.stabilitygtn.rpcUrl}/${apiKey}`
+      `${networks.stabilitygtn.rpcUrls.default.http[0]}/${apiKey}`
     );
   });
 
@@ -27,7 +27,9 @@ describe("StabilityTestnetRpcProvider", () => {
   it("correctly configures the provider instance for the Stability Testnet (STABILITY_TESTNET) with the correct RPC URL", () => {
     const provider = new StabilityTestnetRpcProvider();
 
-    expect(provider.connection.url).toBe(networks.stabilitytestnet.rpcUrl);
+    expect(provider.connection.url).toBe(
+      networks.stabilitytestnet.rpcUrls.default.http[0]
+    );
   });
 
   it("correctly configures the provider instance for the Stability Testnet (STABILITY_TESTNET) with the correct CHAIN ID", () => {
