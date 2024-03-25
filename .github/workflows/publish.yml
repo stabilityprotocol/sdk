@@ -8,7 +8,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # Define NPM_TOKEN aquí para que esté disponible en todos los pasos
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Define NPM_TOKEN aquí para que esté disponible en todos los pasos
     steps:
       - uses: actions/checkout@v3
 
