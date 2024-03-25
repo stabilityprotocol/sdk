@@ -32,7 +32,7 @@ jobs:
 
       - name: Publish package
         run: |
-          yarn workspace @stabilityprotocol/config publish --access public
-          yarn workspace @stabilityprotocol/provider publish --access public
+          npm --prefix packages/config publish --access public
+          npm --prefix packages/provider publish --access public
           env:
             NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
