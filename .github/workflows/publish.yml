@@ -34,5 +34,5 @@ jobs:
 
       - name: Publish package
         run: |
-          yarn workspace @stabilityprotocol/config publish --non-interactive --access public
-          yarn workspace @stabilityprotocol/provider publish --non-interactive --access public
+          yarn workspace @stabilityprotocol/config publish --access public
+          yarn workspace @stabilityprotocol/provider publish --access public
