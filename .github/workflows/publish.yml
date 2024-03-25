@@ -24,6 +24,8 @@ jobs:
         run: |
           yarn workspace @stabilityprotocol/config build
           yarn workspace @stabilityprotocol/provider build
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Test package
         run: |
