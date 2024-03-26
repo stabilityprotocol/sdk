@@ -32,7 +32,9 @@ jobs:
 
       - name: Publish package
         run: |
-          npm --prefix packages/config publish --access public
-          npm --prefix packages/provider publish --access public
+          cd packages/config
+          npm publish --access public
+          cd ../../packages/provider
+          npm publish --access public
           env:
             NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

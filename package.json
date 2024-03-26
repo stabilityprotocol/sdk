@@ -5,6 +5,7 @@
   "repository": "git@github.com:stabilityprotocol/sdk.git",
   "author": "GabrielMartinezRodriguez <gabrielmartinezrdrgz@gmail.com>",
   "license": "MIT",
+  "private": true,
   "workspaces": [
     "packages/*"
   ]
