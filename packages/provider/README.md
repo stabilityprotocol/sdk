@@ -5,9 +5,11 @@ The Stability Provider offers developers a convenient way to integrate with the 
 ## Example
 
 ```ts
-const gtnProvider = new StabilityGtnRpcProvider("your_api_key");
+import { StabilityGtnRpcProvider } from "@stabilityprotocol/provider";
 
-async function printCurrentBlockNumber(provider) {
+const gtnProvider = new StabilityGtnRpcProvider("oc9i23n7nqsq");
+
+async function printCurrentBlockNumber(provider : StabilityGtnRpcProvider) {
   const blockNumber = await provider.getBlockNumber();
   console.log(`Current Block Number: ${blockNumber}`);
 }
