@@ -1,4 +1,4 @@
-import { defineChain, Address } from "viem";
+import { defineChain, Address, createPublicClient, http } from "viem";
 
 export enum Blockchains {
   STABILITY_TESTNET = "stabilitytestnet",
@@ -10,7 +10,6 @@ export const networks = {
     id: 20180427,
     name: "Stability Testnet",
     network: "stability-testnet",
-    key: "stabilityTestnet",
     nativeCurrency: {
       decimals: 18,
       name: "Decentralized Native Token",
@@ -41,7 +40,6 @@ export const networks = {
     id: 101010,
     name: "Global Trust Network",
     network: "stability-gtn",
-    key: "stabilityGtn",
     nativeCurrency: {
       decimals: 18,
       name: "Decentralized Native Token",
@@ -69,4 +67,22 @@ export const networks = {
     },
     logoUri: "/img/chain-icons/stability-logo.png",
   }),
+};
+
+export const createStabilityTestnetClient = () => {
+  return createPublicClient({
+    chain: networks.stabilitytestnet,
+    transport: http(
+      networks[Blockchains.STABILITY_TESTNET].rpcUrls.default.http[0]
+    ),
+  });
+};
+
+export const createStabilityGtnClient = (apiKey: string) => {
+  return createPublicClient({
+    chain: networks.stabilitygtn,
+    transport: http(
+      `${networks[Blockchains.STABILITY_GTN].rpcUrls.default.http[0]}/${apiKey}`
+    ),
+  });
 };
