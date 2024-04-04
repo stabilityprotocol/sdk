@@ -9,7 +9,6 @@ export const networks = {
   [Blockchains.STABILITY_TESTNET]: defineChain({
     id: 20180427,
     name: "Stability Testnet",
-    network: "stability-testnet",
     nativeCurrency: {
       decimals: 18,
       name: "Decentralized Native Token",
@@ -39,7 +38,6 @@ export const networks = {
   [Blockchains.STABILITY_GTN]: defineChain({
     id: 101010,
     name: "Global Trust Network",
-    network: "stability-gtn",
     nativeCurrency: {
       decimals: 18,
       name: "Decentralized Native Token",

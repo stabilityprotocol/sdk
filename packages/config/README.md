@@ -1,8 +1,25 @@
+
 # Config
 
-A TypeScript library designed to provide straightforward access to the Stability Testnet and Global Trust Network configurations. This package simplifies the process of integrating blockchain network configurations into your projects, offering details like network IDs, names, native currencies, RPC URLs, and smart contract addresses. Additionally, the configuration is structured to be directly usable as a network config in viem, enhancing its compatibility and ease of use.
+A TypeScript library designed to provide straightforward access to the Stability Testnet and Global Trust Network (GTN) configurations. This package streamlines the process of integrating blockchain network configurations into your projects, offering essential details like network IDs, names, native currencies, RPC URLs, and smart contract addresses. Moreover, the configuration is structured for direct usability as a network config in Viem, enhancing its compatibility and ease of use.
 
-## EXAMPLE
+## Prerequisites
+
+- Viem
+- Node.js
+- An API Key from [Stability Protocol](https://portal.stabilityprotocol.com/), available for free.
+
+## Installation
+
+To install the package, run the following command in your project directory:
+
+```bash
+npm i @stabilityprotocol/provider
+```
+
+## Usage
+
+Below is a quick example using TypeScript and ts-node to get you started. In this example, we are connecting to the Global Trust Network.
 
 ```ts
 import { Blockchains, networks } from "@stabilityprotocol/config";
@@ -13,16 +30,19 @@ const YOUR_API_KEY = "134...."; // Sign up to get an API key at https://portal.s
 const client = createPublicClient({
   chain: networks.stabilitygtn,
   transport: http(
-    `${
-      networks[Blockchains.STABILITY_GTN].rpcUrls.default.http[0]
-    }/${YOUR_API_KEY}`
+    `${networks[Blockchains.STABILITY_GTN].rpcUrls.default.http[0]}/${YOUR_API_KEY}`
   ),
 });
 
-const blockNumber = await client.getBlockNumber();
+async function printCurrentBlockNumber() {
+  const blockNumber = await client.getBlockNumber();
+  console.log(`Current Block Number: ${blockNumber}`);
+}
+
+printCurrentBlockNumber();
 ```
 
-Additionally, we've created a simplified version allowing you to use Viem without the need to configure the transport, as easy as:
+We've also created a simplified version that allows you to use Viem without the need to configure the transport. In this example, we are connecting to the Global Trust Network.
 
 ```ts
 import { createStabilityGtnClient } from "@stabilityprotocol/config";
@@ -31,7 +51,12 @@ const YOUR_API_KEY = "134...."; // Sign up to get an API key at https://portal.s
 
 const client = createStabilityGtnClient(YOUR_API_KEY);
 
-const blockNumber = await client.getBlockNumber();
+async function printCurrentBlockNumber() {
+  const blockNumber = await client.getBlockNumber();
+  console.log(`Current Block Number: ${blockNumber}`);
+}
+
+printCurrentBlockNumber();
 ```
 
 ## License
