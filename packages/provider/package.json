@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "@stabilityprotocol/config": "1.0.0",
-    "ethers": "5.7.2"
+    "ethers": "5.7.2",
+    "viem": "2.9.9"
   },
   "devDependencies": {
     "@tsconfig/node16": "^16.1.1",
