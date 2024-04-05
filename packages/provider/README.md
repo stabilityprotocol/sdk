@@ -1,7 +1,7 @@
 
 # Provider
 
-The Stability Provider offers developers a convenient way to integrate with the Stability Testnet and the Global Trust Network (GTN) using the `ethers.js` and `viem` library. This provider simplifies the process of creating `ethers.js` providers and `viem` configurations by automatically configuring them with the correct network settings.
+The Stability Provider Package offers developers a convenient way to integrate with the Stability Testnet and the Global Trust Network (GTN) using the `ethers.js` and `viem` library. This provider simplifies the process of creating `ethers.js` providers and `viem` configurations by automatically configuring them with the correct network settings.
 
 For more information on Stability, an open-source blockchain technology without cryptocurrency dependencies, please visit the [Stability Protocol](https://stabilityprotocol.com/).
 
