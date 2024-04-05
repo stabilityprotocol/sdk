@@ -26,11 +26,11 @@ npm i @stabilityprotocol/provider
 Here is a quick example using TypeScript and ts-node to get you started. In this example, we are connecting to the Global Trust Network (GTN).
 
 ```ts
-import { StabilityGtnRpcProvider } from "@stabilityprotocol/provider";
+import { StabilityGtnRpcProviderEthers } from "@stabilityprotocol/provider";
 
-const gtnProvider = new StabilityGtnRpcProvider("your_api_key"); // Sign up to get an API key at https://portal.stabilityprotocol.com
+const gtnProvider = new StabilityGtnRpcProviderEthers("your_api_key"); // Sign up to get an API key at https://portal.stabilityprotocol.com
 
-async function printCurrentBlockNumber(provider: StabilityGtnRpcProvider) {
+async function printCurrentBlockNumber(provider: StabilityGtnRpcProviderEthers) {
   const blockNumber = await provider.getBlockNumber();
   console.log(`Current Block Number: ${blockNumber}`);
 }
@@ -43,34 +43,11 @@ printCurrentBlockNumber(gtnProvider);
 Below is a quick example using TypeScript and ts-node to get you started. In this example, we are connecting to the Global Trust Network.
 
 ```ts
-import { Blockchains, networks } from "@stabilityprotocol/config";
-import { createPublicClient, http } from "viem";
+import { createStabilityGtnClientViem } from "@stabilityprotocol/provider";
 
 const YOUR_API_KEY = "134...."; // Sign up to get an API key at https://portal.stabilityprotocol.com
 
-const client = createPublicClient({
-  chain: networks.stabilitygtn,
-  transport: http(
-    `${networks[Blockchains.STABILITY_GTN].rpcUrls.default.http[0]}/${YOUR_API_KEY}`
-  ),
-});
-
-async function printCurrentBlockNumber() {
-  const blockNumber = await client.getBlockNumber();
-  console.log(`Current Block Number: ${blockNumber}`);
-}
-
-printCurrentBlockNumber();
-```
-
-We've also created a simplified version that allows you to use Viem without the need to configure the transport. In this example, we are connecting to the Global Trust Network.
-
-```ts
-import { createStabilityGtnClient } from "@stabilityprotocol/config";
-
-const YOUR_API_KEY = "134...."; // Sign up to get an API key at https://portal.stabilityprotocol.com
-
-const client = createStabilityGtnClient(YOUR_API_KEY);
+const client = createStabilityGtnClientViem(YOUR_API_KEY);
 
 async function printCurrentBlockNumber() {
   const blockNumber = await client.getBlockNumber();

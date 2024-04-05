@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { networks, Blockchains } from "@stabilityprotocol/config";
 
-export class StabilityGtnRpcProvider extends ethers.providers.JsonRpcProvider {
+export class StabilityGtnRpcProviderEthers extends ethers.providers.JsonRpcProvider {
   constructor(apiKey: string) {
     const url = `${
       networks[Blockchains.STABILITY_GTN].rpcUrls.default.http[0]
@@ -10,7 +10,7 @@ export class StabilityGtnRpcProvider extends ethers.providers.JsonRpcProvider {
   }
 }
 
-export class StabilityTestnetRpcProvider extends ethers.providers
+export class StabilityTestnetRpcProviderEthers extends ethers.providers
   .JsonRpcProvider {
   constructor() {
     super(
