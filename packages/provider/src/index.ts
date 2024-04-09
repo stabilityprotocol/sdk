@@ -1,5 +1,5 @@
-import { StabilityGtnRpcProviderEthers, StabilityTestnetRpcProviderEthers } from "./ethers_setup";
-import { createStabilityTestnetClientViem, createStabilityGtnClientViem } from "./viem_setup";
+import { StabilityGtnRpcProviderEthers, StabilityTestnetRpcProviderEthers } from "./ethersSetup";
+import { createStabilityTestnetClientViem, createStabilityGtnClientViem } from "./viemSetup";
 
 export {
   StabilityGtnRpcProviderEthers,
