@@ -7,7 +7,7 @@ const config: Config.InitialOptions = {
     "^.+\\.tsx?$": "ts-jest",
   },
   extensionsToTreatAsEsm: [".ts"],
-  testMatch: ["**/__tests__/**/*.test.ts"],
+  testMatch: ["**/_tests_/**/*.test.ts"],
   testTimeout: 30000,
 };
 export default config;
