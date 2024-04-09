@@ -32,7 +32,8 @@ export const networks = {
         blockCreated: 2318,
       },
     },
-    logoUri: "https://bafybeibmzvzrzy44e64hzhgii7tdcrqwduoim3c2j7rclqpdcousn6msqy.ipfs.nftstorage.link/stability-logo.png",
+    logoUri:
+      "https://bafybeibmzvzrzy44e64hzhgii7tdcrqwduoim3c2j7rclqpdcousn6msqy.ipfs.cf-ipfs.com/stability-logo.png",
   },
   [Blockchains.STABILITY_GTN]: {
     id: 101010,
@@ -62,6 +63,7 @@ export const networks = {
         blockCreated: 453,
       },
     },
-    logoUri: "https://bafybeibmzvzrzy44e64hzhgii7tdcrqwduoim3c2j7rclqpdcousn6msqy.ipfs.nftstorage.link/stability-logo.png",
+    logoUri:
+      "https://bafybeibmzvzrzy44e64hzhgii7tdcrqwduoim3c2j7rclqpdcousn6msqy.ipfs.cf-ipfs.com/stability-logo.png",
   },
 };
