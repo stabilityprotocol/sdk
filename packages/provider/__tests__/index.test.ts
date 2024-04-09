@@ -1,40 +1,90 @@
 import { ethers } from "ethers";
-import { networks } from "@stabilityprotocol/config";
+import { Blockchains, networks } from "@stabilityprotocol/config";
 import {
-  StabilityGtnRpcProvider,
-  StabilityTestnetRpcProvider,
+  createStabilityTestnetClientViem,
+  createStabilityGtnClientViem,
 } from "../src/index";
+import { PublicClient } from "viem";
 
-describe("StabilityGtnRpcProvider", () => {
-  it("correctly configures the provider instance for the Global Trust Network (STABILITY_GTN) with the correct RPC URL", () => {
-    const apiKey = "dummyApiKey";
-    const provider = new StabilityGtnRpcProvider(apiKey);
+describe("Blockchain RPC Connection and Chain ID Tests", () => {
+  Object.values(Blockchains).forEach((blockchain) => {
+    describe(`${blockchain} Network`, () => {
+      let provider: ethers.JsonRpcProvider;
+      let viemProvider: PublicClient;
 
-    expect(provider.connection.url).toBe(
-      `${networks.stabilitygtn.rpcUrls.default.http[0]}/${apiKey}`
-    );
-  });
+      beforeAll(() => {
+        const rpcUrl = networks[blockchain].rpcUrls.default.http[0];
+        provider = new ethers.JsonRpcProvider(rpcUrl);
+        viemProvider = rpcUrl.includes("gtn")
+          ? createStabilityGtnClientViem("apiKey")
+          : createStabilityTestnetClientViem();
+      });
 
-  it("correctly configures the provider instance for the Stability Testnet (STABILITY_GTN) with the correct CHAIN ID", () => {
-    const apiKey = "dummyApiKey";
-    const provider = new StabilityGtnRpcProvider(apiKey);
+      // Config Validation Tests
 
-    expect(provider.network.chainId).toBe(networks.stabilitygtn.id);
-  });
-});
+      test("should have a valid block explorer URL", async () => {
+        const blockExplorerUrl =
+          networks[blockchain].blockExplorers.default.url;
+        expect(blockExplorerUrl).toMatch(/^https?:\/\/[^\s$.?#].[^\s]*$/);
+      });
 
-describe("StabilityTestnetRpcProvider", () => {
-  it("correctly configures the provider instance for the Stability Testnet (STABILITY_TESTNET) with the correct RPC URL", () => {
-    const provider = new StabilityTestnetRpcProvider();
+      test("should have a valid logo URI", async () => {
+        const logoUri = networks[blockchain].logoUri;
+        expect(logoUri).toMatch(/^https?:\/\/[^\s$.?#].[^\s]*$/);
+      });
 
-    expect(provider.connection.url).toBe(
-      networks.stabilitytestnet.rpcUrls.default.http[0]
-    );
-  });
+      test("should have a valid multicall contract address", async () => {
+        const multicallAddress =
+          networks[blockchain].contracts.multicall3.address;
+        expect(multicallAddress).toMatch(/^0x[a-fA-F0-9]{40}$/);
+      });
 
-  it("correctly configures the provider instance for the Stability Testnet (STABILITY_TESTNET) with the correct CHAIN ID", () => {
-    const provider = new StabilityTestnetRpcProvider();
+      // RPC Connection Tests
 
-    expect(provider.network.chainId).toBe(networks.stabilitytestnet.id);
+      test("should connect to RPC network", async () => {
+        const network = await provider.getNetwork();
+        const viemNetwork = viemProvider.name;
+        expect(network).toBeDefined();
+        expect(viemNetwork).toBeDefined();
+      });
+
+      test("should retrieve the correct chain ID", async () => {
+        const network = await provider.getNetwork();
+        const viemNetwork = await viemProvider.getChainId();
+        expect(Number(network.chainId)).toBe(networks[blockchain].id);
+        expect(Number(viemNetwork)).toBe(networks[blockchain].id);
+      });
+
+      test("should be able to send a simple query to the network", async () => {
+        const latestBlock = await provider.getBlockNumber();
+        expect(latestBlock).toBeGreaterThan(0);
+        const viemLatestBlock = await viemProvider.getBlockNumber();
+        expect(viemLatestBlock).toBeGreaterThan(0);
+      });
+
+      test("should retrieve a block by number", async () => {
+        const blockNumber = await provider.getBlockNumber();
+        const block = await provider.getBlock(blockNumber - 1);
+        expect(block).toBeDefined();
+
+        const viemBlockNumber = await viemProvider.getBlockNumber();
+        const viemBlock = await Number(
+          viemProvider.getBlock({
+            blockNumber: viemBlockNumber - BigInt(1),
+            includeTransactions: true,
+          })
+        );
+        expect(viemBlock).toBeDefined();
+      });
+
+      test("should retrieve transaction count by address", async () => {
+        const address = "0xC26CeeFd4e58288e44CDC445D23D43D5202983f9";
+        const txCount = await provider.getTransactionCount(address);
+        expect(txCount).toBeGreaterThanOrEqual(0);
+
+        const viemTxCount = await viemProvider.getTransactionCount({ address });
+        expect(viemTxCount).toBeGreaterThanOrEqual(0);
+      });
+    });
   });
 });

@@ -1,37 +1,35 @@
+
 # Config
 
-A TypeScript library designed to provide straightforward access to the Stability Testnet and Global Trust Network configurations. This package simplifies the process of integrating blockchain network configurations into your projects, offering details like network IDs, names, native currencies, RPC URLs, and smart contract addresses. Additionally, the configuration is structured to be directly usable as a network config in viem, enhancing its compatibility and ease of use.
+The Config Package contains essential configurations for different blockchain networks within the Stability ecosystem. It's designed to provide a clean, dependency-free set of data that can be easily imported and utilized across various parts of your application when interfacing with blockchain operations.
 
-## EXAMPLE
+#### Key Components:
 
-```ts
-import { Blockchains, networks } from "@stabilityprotocol/config";
-import { createPublicClient, http } from "viem";
+- **`Blockchains` Enum**: This enumeration defines the available blockchain networks within the Stability ecosystem, such as the Stability Testnet and the Global Trust Network (GTN). Each network is represented as an enum member, providing a clear and type-safe way of referencing these networks throughout your code.
 
-const YOUR_API_KEY = "134...."; // Sign up to get an API key at https://portal.stabilityprotocol.com
+- **`networks` Object**: This is the core of the file, containing detailed configurations for each blockchain network defined in the `Blockchains` enum. Each network's configuration includes:
+  - `id`: The chainID for the network. 
+  - `name`: The human-readable name of the network.
+  - `nativeCurrency`: Information about the network's native currency, including its name, symbol, and decimal precision. Stability-utilizing networks eschew native cryptocurrencies, maintaining these values solely for EVM compatibility.
+  - `rpcUrls`: RPC URLs for accessing the network. It includes both default and public endpoints.
+  - `blockExplorers`: URLs to the network's block explorer websites, providing a way to view transactions and blocks on the network.
+  - `contracts`: Addresses and other relevant information about smart contracts deployed on the network, such as the Multicall3 contract.
+  - `logoUri`: The URI to a logo representing the network, useful for UI purposes.
 
-const client = createPublicClient({
-  chain: networks.stabilitygtn,
-  transport: http(
-    `${
-      networks[Blockchains.STABILITY_GTN].rpcUrls.default.http[0]
-    }/${YOUR_API_KEY}`
-  ),
-});
+#### Usage:
 
-const blockNumber = await client.getBlockNumber();
-```
+The `index.ts` configurations can be imported into various parts of your application, allowing you to use these settings independently of other dependencies. This modularity enhances your codebase's maintainability and scalability.
 
-Additionally, we've created a simplified version allowing you to use Viem without the need to configure the transport, as easy as:
+For instance, when your application components need to interact with these networks via the `viem` library, these configurations facilitate the dynamic establishment of network connections, clients, and other blockchain-centric operations.
 
-```ts
-import { createStabilityGtnClient } from "@stabilityprotocol/config";
+For those seeking a pre-configured solution that incorporates `viem` and `ethers`, the Stability Team offers a ready-to-use `provider` package. This `provider` package, in turn, depends on the `config` package for its underlying configurations.
 
-const YOUR_API_KEY = "134...."; // Sign up to get an API key at https://portal.stabilityprotocol.com
+## Installation
 
-const client = createStabilityGtnClient(YOUR_API_KEY);
+To install the package, run the following command in your project directory:
 
-const blockNumber = await client.getBlockNumber();
+```bash
+npm i @stabilityprotocol/config
 ```
 
 ## License
