@@ -26,10 +26,10 @@ jobs:
           yarn workspace @stabilityprotocol/provider build
 
       - name: Publish package
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/config
           npm publish --access public
           cd ../../packages/provider
           npm publish --access public
-          env:
-            NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
