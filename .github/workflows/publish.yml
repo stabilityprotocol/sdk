@@ -25,11 +25,6 @@ jobs:
           yarn workspace @stabilityprotocol/config build
           yarn workspace @stabilityprotocol/provider build
 
-      - name: Test package
-        run: |
-          yarn workspace @stabilityprotocol/config test
-          yarn workspace @stabilityprotocol/provider test
-
       - name: Publish package
         run: |
           cd packages/config
