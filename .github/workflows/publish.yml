@@ -16,6 +16,8 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
           scope: "@stabilityprotocol"
+          # Se agrega el cache para Yarn
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -24,10 +26,9 @@ jobs:
         run: |
           yarn workspace @stabilityprotocol/config build
           yarn workspace @stabilityprotocol/provider build
-
       - name: Publish package
-        run: |
-          npm publish packages/config --access public
-          npm publish packages/provider --access public
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn workspace @stabilityprotocol/config npm publish --access public
+          yarn workspace @stabilityprotocol/provider npm publish --access public
