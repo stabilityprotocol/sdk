@@ -30,7 +30,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          cat /home/runner/work/sdk/sdk/packages/config/.npmrc 
           cd packages/config
           npm publish --access public
 
