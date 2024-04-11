@@ -27,9 +27,7 @@ jobs:
 
       - name: Publish package
         run: |
-          cd packages/config
-          npm publish --access public
-          cd ../../packages/provider
-          npm publish --access public
-          env:
-            NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          npm publish packages/config --access public
+          npm publish packages/provider --access public
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
