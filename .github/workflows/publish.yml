@@ -30,6 +30,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          echo $NODE_AUTH_TOKEN
           cd packages/config
           npm publish --access public
 
