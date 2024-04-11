@@ -29,7 +29,11 @@ jobs:
         run: |
           cd packages/config
           npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish provider package
         run: |
           cd packages/provider
           npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
