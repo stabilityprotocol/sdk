@@ -14,10 +14,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "16.x"
-          registry-url: "https://registry.npmjs.org/"
-          scope: "@your-scope"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          registry-url: "https://registry.npmjs.org"
+          scope: "@stabilityprotocol"
+          cache: "yarn"
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -25,15 +25,12 @@ jobs:
         run: |
           yarn workspace @stabilityprotocol/config build
           yarn workspace @stabilityprotocol/provider build
-      - name: Publish config package
+
+      - name: Publish package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           cd packages/config
           npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish provider package
-        run: |
-          cd packages/provider
+          cd ../../packages/provider
           npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
