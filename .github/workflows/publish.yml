@@ -26,12 +26,11 @@ jobs:
           yarn workspace @stabilityprotocol/config build
           yarn workspace @stabilityprotocol/provider build
 
-      - name: Create .npmrc for config package
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > packages/config/.npmrc
-
       - name: Publish config package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          cat /home/runner/work/sdk/sdk/packages/config/.npmrc 
           cd packages/config
           npm publish --access public
 
