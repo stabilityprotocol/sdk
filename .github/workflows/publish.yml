@@ -26,6 +26,9 @@ jobs:
       - name: Publish package
         run: |
           cd packages/config
+          npm config set @stabilityprotocol:registry https://registry.npmjs.org/
           npm publish
+          npm config set @stabilityprotocol:registry https://registry.npmjs.org/
+
           cd ../../packages/provider
           npm publish
