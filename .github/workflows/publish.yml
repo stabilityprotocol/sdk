@@ -28,6 +28,6 @@ jobs:
       - name: Publish package
         run: |
           cd packages/config
-          npm publish --access public
+          npm publish
           cd ../../packages/provider
-          npm publish --access public
+          npm publish
