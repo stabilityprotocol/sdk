@@ -4,5 +4,9 @@
   "main": "index.js",
   "repository": "git@github.com:stabilityprotocol/sdk.git",
   "author": "GabrielMartinezRodriguez <gabrielmartinezrdrgz@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
 }

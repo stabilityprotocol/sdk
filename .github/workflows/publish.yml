@@ -7,28 +7,30 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+          scope: "@stabilityprotocol"
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Build package
         run: |
-          cd packages/config
-          npm install
-          npm run build
-          cd ../provider
-          npm install
-          npm run build
+          yarn workspace @stabilityprotocol/config build
+          yarn workspace @stabilityprotocol/provider build
 
       - name: Publish package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
         run: |
           cd packages/config
-          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN -g
-          npm publish --registry=https://registry.npmjs.org/
+          npm publish --access public
           cd ../../packages/provider
-          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN -g
-          npm publish --registry=https://registry.npmjs.org/
+          npm publish --access public
