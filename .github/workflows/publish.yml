@@ -29,6 +29,5 @@ jobs:
           npm config set @stabilityprotocol:registry https://registry.npmjs.org/
           npm publish
           npm config set @stabilityprotocol:registry https://registry.npmjs.org/
-
           cd ../../packages/provider
           npm publish
