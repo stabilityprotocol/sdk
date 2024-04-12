@@ -12,9 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Configure npm
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
@@ -29,9 +26,7 @@ jobs:
 
       - name: Publish package
         run: |
-          cd packages/config
-          npm config set @stabilityprotocol:registry https://registry.npmjs.org/
+          cd packages/config --registry=https://registry.npmjs.org/
           npm publish
-          npm config set @stabilityprotocol:registry https://registry.npmjs.org/
           cd ../../packages/provider
-          npm publish
+          npm publish --registry=https://registry.npmjs.org/
