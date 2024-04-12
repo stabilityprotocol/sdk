@@ -20,8 +20,12 @@ jobs:
 
       - name: Build package
         run: |
-          yarn workspace @stabilityprotocol/config build
-          yarn workspace @stabilityprotocol/provider build
+          cd packages/config
+          npm install
+          npm run build
+          cd ../provider
+          npm install
+          npm run build
 
       - name: Publish package
         run: |
