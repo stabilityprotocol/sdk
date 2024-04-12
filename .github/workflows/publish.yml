@@ -27,6 +27,8 @@ jobs:
       - name: Publish package
         run: |
           cd packages/config
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN -g
           npm publish --registry=https://registry.npmjs.org/
           cd ../../packages/provider
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN -g
           npm publish --registry=https://registry.npmjs.org/
