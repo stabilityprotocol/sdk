@@ -26,7 +26,7 @@ jobs:
 
       - name: Publish package
         run: |
-          cd packages/config --registry=https://registry.npmjs.org/
-          npm publish
+          cd packages/config
+          npm publish --registry=https://registry.npmjs.org/
           cd ../../packages/provider
           npm publish --registry=https://registry.npmjs.org/
